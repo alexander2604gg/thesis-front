@@ -1,0 +1,85 @@
+<app-navbar></app-navbar>
+
+<div class="posts-analizados-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="btn-volver" (click)="volver()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <h1>Posts Analizados</h1>
+  </div>
+
+  <!-- Información del lote -->
+  <div class="info-lote">
+    <div class="info-item">
+      <span class="label">N° de Lote</span>
+      <span class="value">Lote {{ idLote }}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">N° de Posts Analizados</span>
+      <span class="value">{{ posts.length }}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">N° de Post con Depresión</span>
+      <span class="value">{{ obtenerPostsConDepresion() }} ({{ obtenerPorcentajeDepresion() }}%)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Estado</span>
+      <span class="value estado-completado">Completado</span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando posts...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button class="btn-reintentar" (click)="cargarPosts()">Reintentar</button>
+  </div>
+
+  <!-- Lista de posts -->
+  <div *ngIf="!cargando && !error" class="posts-grid">
+    <div *ngFor="let post of posts" class="post-card">
+      <!-- Header del post -->
+      <div class="post-header">
+        <div class="user-info">
+          <div class="avatar">
+            <span>{{ post.redditId.charAt(0).toUpperCase() }}</span>
+          </div>
+          <div class="user-details">
+            <span class="username">u/{{ post.redditId }}</span>
+            <span class="date">{{ formatearFecha(post.createdAtReddit) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenido del post -->
+      <div class="post-content">
+        <h3 class="post-title">{{ post.title }}</h3>
+        <p class="post-text">{{ post.content }}</p>
+      </div>
+
+      <!-- Estado de depresión -->
+      <div class="depression-status">
+        <span *ngIf="post.analysis" class="status-label" [ngClass]="obtenerClaseEstado(post.analysis.depressionScore)">
+          {{ obtenerEstadoDepresion(post.analysis.depressionScore) }}
+        </span>
+        <span *ngIf="post.analysis" class="score">Score: {{ (post.analysis.depressionScore * 100 | number:'1.1-1') }}%</span>
+        <span *ngIf="!post.analysis" class="status-label no-analysis">
+          Sin análisis
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje cuando no hay posts -->
+  <div *ngIf="!cargando && !error && posts.length === 0" class="no-posts">
+    <p>No se encontraron posts para este lote.</p>
+  </div>
+</div>

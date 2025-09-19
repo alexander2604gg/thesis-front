@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+
+<div class="lotes-container">
+  <div class="lotes-content">
+    <!-- Header -->
+    <div class="header">
+      <button class="back-button" (click)="volver()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Datos de la configuración -->
+    <div class="config-section">
+      <h2>Datos de la configuración</h2>
+      <div class="loading" *ngIf="cargando">
+        Cargando datos de configuración...
+      </div>
+      <div class="config-table-container" *ngIf="configuracion && !cargando">
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>Subreddit / Categoría</th>
+              <th>Fecha de inicio</th>
+              <th>Fecha de fin</th>
+              <th>Periodo de análisis</th>
+              <th>Fecha de creación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="subreddit-cell">{{ configuracion.subreddit }}</td>
+              <td>{{ formatearFecha(configuracion.startDate) }}</td>
+              <td>{{ formatearFecha(configuracion.endDate) }}</td>
+              <td>{{ formatearPeriodo(configuracion.interval) }}</td>
+              <td>{{ formatearFecha(configuracion.startDate) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="empty-state" *ngIf="!configuracion && !cargando">
+        No se pudo cargar la información de la configuración.
+      </div>
+    </div>
+
+    <!-- Visualización de lotes -->
+    <div class="lotes-section">
+      <div class="section-header">
+        <h2>Visualización de lotes</h2>
+        <button class="report-button" (click)="verReporteGeneral()">
+          Visualizar reporte general
+        </button>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filters">
+        <input type="date" class="filter-date" placeholder="dd / mm / aaaa" [(ngModel)]="fechaFiltro" (change)="filtrarPorFecha()">
+      </div>
+
+      <!-- Tabla de lotes -->
+      <div class="table-container">
+        <div *ngIf="cargando" class="loading">
+          <p>Cargando lotes...</p>
+        </div>
+        
+        <table class="lotes-table" *ngIf="!cargando">
+          <thead>
+            <tr>
+              <th>N° de Lote</th>
+              <th>Fecha de Creación</th>
+              <th>N° de Posts Analizados</th>
+              <th>N° de Post con Depresión</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lote of lotesFiltrados; let i = index" [class.completed]="lote.sizePosts > 0">
+              <td>Lote {{ i + 1 }}</td>
+              <td>{{ formatearFecha(lote.createdAt) }}</td>
+              <td>{{ lote.sizePosts || 'No disponible' }}</td>
+              <td>{{ lote.sizePostsDepression || 'No disponible' }}</td>
+              <td class="actions-cell">
+                <button class="action-button" [disabled]="lote.sizePosts === 0" (click)="verDetallesLote(lote.id)">
+                  Ver detalles
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div *ngIf="!cargando && lotesFiltrados.length === 0" class="empty-state">
+          <p *ngIf="!fechaFiltro">No se encontraron lotes para esta configuración.</p>
+          <p *ngIf="fechaFiltro">No se encontraron lotes para la fecha seleccionada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

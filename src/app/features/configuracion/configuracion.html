@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+
+<div class="configuracion-container">
+  <div class="configuracion-content">
+    <div class="header-section">
+      <button type="button" class="back-button" (click)="volver()">
+        ← 
+      </button>
+      <h1 class="configuracion-title">Configuración</h1>
+    </div>
+    
+    <form class="configuracion-form" #configForm="ngForm" (ngSubmit)="configForm.valid && !fechasInvalidas && !intervalInvalido && guardarConfiguracion()">
+      
+      <!-- Subreddit / categoría -->
+      <div class="form-group">
+        <label class="form-label">Subreddit / categoría</label>
+        <div class="input-wrapper">
+          <div class="input-prefix">r/</div>
+          <input 
+            type="text" 
+            class="form-input" 
+            [(ngModel)]="config.subreddit" 
+            name="subreddit" 
+            required 
+            #subreddit="ngModel" 
+            (blur)="validarCampos()"
+            placeholder="depression" />
+        </div>
+        <div *ngIf="errores.subreddit" class="error-message">
+          El subreddit es obligatorio
+        </div>
+      </div>
+
+      <!-- Rango de fechas -->
+      <div class="form-group">
+        <label class="form-label">Rango de fechas</label>
+        <div class="date-range-wrapper">
+          <div class="date-input-group">
+            <span class="date-label">Desde</span>
+            <input 
+              type="date" 
+              class="form-input date-input" 
+              [(ngModel)]="config.startDate" 
+              name="startDate" 
+              required 
+              #startDate="ngModel" 
+              (change)="validarFechas()" />
+          </div>
+          <span class="date-separator">al</span>
+          <div class="date-input-group">
+            <input 
+              type="date" 
+              class="form-input date-input" 
+              [(ngModel)]="config.endDate" 
+              name="endDate" 
+              required 
+              #endDate="ngModel" 
+              (change)="validarFechas()" />
+          </div>
+        </div>
+        <div *ngIf="fechasInvalidas" class="error-message">
+          La fecha de inicio debe ser anterior a la fecha de fin
+        </div>
+      </div>
+
+      <!-- Periodo de análisis -->
+      <div class="form-group">
+        <label class="form-label">Periodo de análisis</label>
+        <div class="period-wrapper">
+          <span class="period-label">Cada</span>
+          <input 
+            type="number" 
+            class="form-input number-input" 
+            [(ngModel)]="config.interval" 
+            name="interval" 
+            required 
+            min="1" 
+            #interval="ngModel" 
+            (change)="validarIntervalo()" />
+          <select class="form-select" disabled>
+            <option selected>Minutos</option>
+          </select>
+        </div>
+        <div *ngIf="intervalInvalido" class="error-message">
+          El intervalo debe ser un número mayor a 0
+        </div>
+      </div>
+
+      <!-- Botón de envío -->
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="submit-button"
+          [disabled]="configForm.invalid || cargando || fechasInvalidas || intervalInvalido">
+          <span *ngIf="cargando">Guardando...</span>
+          <span *ngIf="!cargando">Guardar configuración</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

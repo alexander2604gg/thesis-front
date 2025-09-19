@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+
+<div class="configuraciones-container">
+  <div class="configuraciones-content">
+    <!-- Header -->
+    <div class="header">
+      <button class="back-button" (click)="volver()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <h1 class="page-title">Configuraciones registradas</h1>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters">
+      <input 
+        type="date" 
+        class="filter-date" 
+        [(ngModel)]="fechaFiltro" 
+        (change)="onFechaChange()" 
+        placeholder="dd / mm / aaaa" />
+      
+      <button class="add-button" (click)="agregarNueva()">
+        <span>Agregar nueva</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-container">
+      <div *ngIf="cargando" class="loading">
+        Cargando configuraciones...
+      </div>
+      
+      <table *ngIf="!cargando" class="configurations-table">
+        <thead>
+          <tr>
+            <th>Subreddit / Categoría</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de fin</th>
+            <th>Periodo de análisis</th>
+            <th>Fecha de creación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let config of configuraciones" class="table-row">
+            <td class="subreddit-cell">{{ config.subreddit }}</td>
+            <td>{{ formatearFecha(config.startDate) }}</td>
+            <td>{{ formatearFecha(config.endDate) }}</td>
+            <td>{{ formatearPeriodo(config.interval) }}</td>
+            <td>{{ formatearFecha(config.startDate) }}</td>
+            <td class="actions-cell">
+              <button class="action-button ver-lotes" (click)="verLotes(config.id)">
+                Ver lotes
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div *ngIf="!cargando && configuraciones.length === 0" class="empty-state">
+        <p>No se encontraron configuraciones para la fecha seleccionada.</p>
+      </div>
+    </div>
+  </div>
+</div>

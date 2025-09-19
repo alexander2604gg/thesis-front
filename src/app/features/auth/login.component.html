@@ -1,0 +1,53 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Iniciar Sesión</h1>
+      <p>Ingresa tus datos a continuación</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input 
+          type="text" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="email" 
+          required 
+          class="form-input"
+          placeholder="Ingresa tu email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="password" 
+          required 
+          class="form-input"
+          placeholder="Ingresa tu contraseña"
+        >
+      </div>
+
+      <div class="forgot-password">
+        <a href="#" (click)="forgotPassword()" class="forgot-link">Olvidé mi contraseña</a>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="login-button" 
+        [disabled]="loading || !loginForm.valid"
+      >
+        <span *ngIf="loading">Cargando...</span>
+        <span *ngIf="!loading">Continuar</span>
+      </button>
+    </form>
+  </div>
+</div>

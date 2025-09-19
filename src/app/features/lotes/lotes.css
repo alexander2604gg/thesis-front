@@ -1,0 +1,238 @@
+.lotes-container {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 2rem 0;
+}
+
+.lotes-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #6b7280;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* Secciones */
+.config-section,
+.lotes-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.config-section h2,
+.lotes-section h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+/* Tabla de configuración */
+.config-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.config-table thead {
+  background: #f9fafb;
+}
+
+.config-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.config-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.subreddit-cell {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* Filtros */
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.filter-date {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-date:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.filter-date:hover {
+  border-color: #f97316;
+}
+
+/* Tabla de lotes */
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.lotes-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.lotes-table thead {
+  background: #f9fafb;
+}
+
+.lotes-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.lotes-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.lotes-table tr:hover {
+  background-color: #f9fafb;
+}
+
+.lotes-table tr.completed td:nth-child(4) {
+  color: #059669;
+  font-weight: 500;
+}
+
+.actions-cell {
+  text-align: center;
+}
+
+.action-button {
+  background: none;
+  border: 1px solid #f97316;
+  color: #f97316;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-button:hover:not(:disabled) {
+  background-color: #f97316;
+  color: white;
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Botón de reporte */
+.report-button {
+  background: none;
+  border: 1px solid #f97316;
+  color: #f97316;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.report-button:hover:not(:disabled) {
+  background-color: #f97316;
+  color: white;
+}
+
+.report-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #9ca3af;
+  border-color: #d1d5db;
+}
+
+/* Estados */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.empty-state p {
+  margin: 0;
+}

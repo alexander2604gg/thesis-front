@@ -1,0 +1,329 @@
+/* Configuración Container */
+.configuracion-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 2rem 1rem;
+}
+
+.configuracion-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+/* Header Section */
+.header-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+}
+
+.back-button:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Título */
+.configuracion-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Formulario */
+.configuracion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Grupos de formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  margin: 0;
+}
+
+/* Input wrapper para subreddit */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-prefix {
+  background: #e5e7eb;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  border-right: 1px solid #d1d5db;
+}
+
+/* Inputs generales */
+.form-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #374151;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Date range wrapper */
+.date-range-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.date-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.date-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.date-separator {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin: 0 0.5rem;
+}
+
+.date-input {
+  background: #f8f9fa;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #374151;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.date-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* Period wrapper */
+.period-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.period-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.number-input {
+  background: #f8f9fa;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #374151;
+  transition: all 0.2s ease;
+  width: 100px;
+  text-align: center;
+}
+
+.number-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.form-select {
+  background: #f8f9fa;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #374151;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-message::before {
+  content: "⚠";
+  font-size: 1rem;
+}
+
+/* Acciones del formulario */
+.form-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-button {
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 180px;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #ea580c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.submit-button:disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .configuracion-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .configuracion-content {
+    padding: 1.5rem;
+    margin: 0;
+    border-radius: 8px;
+  }
+  
+  .configuracion-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .configuracion-form {
+    gap: 1.5rem;
+  }
+  
+  .date-range-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .date-input-group {
+    min-width: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .date-separator {
+    text-align: center;
+    margin: 0;
+  }
+  
+  .period-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .number-input {
+    width: 100%;
+    text-align: left;
+  }
+  
+  .form-actions {
+    justify-content: stretch;
+  }
+  
+  .submit-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .configuracion-content {
+    padding: 1rem;
+  }
+  
+  .input-wrapper {
+    flex-direction: column;
+  }
+  
+  .input-prefix {
+    border-right: none;
+    border-bottom: 1px solid #d1d5db;
+    text-align: center;
+  }
+}

@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <!-- Header con botón volver -->
+  <div class="header">
+    <button class="back-button" (click)="volver()">
+      ← Volver a lotes
+    </button>
+    <h1>Reporte General de Depresión</h1>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="cargando" class="loading">
+    <p>Cargando reporte...</p>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!cargando && !error && configuracion && stats">
+    <!-- Datos de la configuración -->
+    <div class="config-info">
+      <h2>Datos de la configuración</h2>
+      <div class="config-table">
+        <div class="config-row">
+          <div class="config-header">Subreddit / Categoría</div>
+          <div class="config-header">Fecha de inicio</div>
+          <div class="config-header">Fecha de fin</div>
+          <div class="config-header">Período de análisis</div>
+          <div class="config-header">Estado</div>
+          <div class="config-header">Fecha de creación</div>
+        </div>
+        <div class="config-row">
+          <div class="config-cell">{{ configuracion.subreddit }}</div>
+          <div class="config-cell">{{ formatearFecha(configuracion.startDate) }}</div>
+          <div class="config-cell">{{ formatearFecha(configuracion.endDate) }}</div>
+          <div class="config-cell">{{ formatearPeriodo(configuracion.interval) }}</div>
+          <div class="config-cell">
+            <span class="status-badge done">Done</span>
+          </div>
+          <div class="config-cell">{{ formatearFecha(configuracion.startDate) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Métricas principales -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-number">{{ stats.totalPosts }}</div>
+        <div class="metric-label">Post de Reddit<br>Analizados</div>
+      </div>
+      <div class="metric-card highlight">
+        <div class="metric-number">{{ stats.totalDepressivePosts }} ({{ stats.percentageDepressive }}%)</div>
+        <div class="metric-label">Post Detectados<br>Depresivos</div>
+      </div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="chart-container">
+      <canvas #chartCanvas></canvas>
+    </div>
+  </div>
+</div>
