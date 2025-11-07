@@ -36,4 +36,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/stats/reporte-general.component').then(m => m.ReporteGeneralComponent),
     canActivate: [AuthGuard]
   }
+  ,
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./features/dashboard/pages/dashboard-page.component').then(m => m.DashboardPageComponent),
+    canActivate: [AuthGuard]
+  }
 ];

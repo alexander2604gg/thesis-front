@@ -7,13 +7,14 @@
   <!-- Menú principal - Solo visible si está autenticado -->
   <ul class="navbar__menu" *ngIf="authService.isAuthenticated()">
     <li class="navbar__item">
-      <a routerLink="/configuraciones-registradas" routerLinkActive="active">Configuraciones</a>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
     </li>
     <li class="navbar__item">
-      <a routerLink="/configuracion" routerLinkActive="active">Nueva Configuración</a>
+      <a routerLink="/configuraciones-registradas" routerLinkActive="active">Configuraciones</a>
     </li>
     <div class="perfil">
       <img src="assets/icons/Icon-User.svg" alt="Usuario" class="navbar__logo" />
+      <span class="user-email">{{ authService.getUserEmail() }}</span>
       <button (click)="logout()" class="logout-btn">Cerrar Sesión</button>
     </div>
   </ul>

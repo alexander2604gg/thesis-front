@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <div class="header">
+    <h1>📊 Dashboard de Monitoreo Emocional</h1>
+    <div class="view-switch">
+      <button [class.active]="sectionView==='general'" (click)="setSectionView('general')">Visión general</button>
+      <button [class.active]="sectionView==='analytics'" (click)="setSectionView('analytics')">Análisis con filtros</button>
+    </div>
+  </div>
+
+  <!-- Sección 1: Visión general (sin filtros) -->
+  <section class="section general" *ngIf="sectionView==='general'">
+    <h2 class="section-title">Visión general</h2>
+    <div class="general-grid">
+      <app-dashboard-overview [overview]="overview" [loading]="loadingOverview" [error]="errorOverview"></app-dashboard-overview>
+    </div>
+  </section>
+
+  <!-- Sección 2: Análisis con filtros (aplican solo a los gráficos) -->
+  <section class="section analytics" *ngIf="sectionView==='analytics'">
+    <h2 class="section-title">Análisis con filtros</h2>
+    <div class="charts-card">
+      <div class="charts-header">
+        <h3>Gráficos</h3>
+        <div class="chart-switch">
+          <button [class.active]="chartView==='trend'" (click)="setChartView('trend')">Tendencia</button>
+          <button [class.active]="chartView==='distribution'" (click)="setChartView('distribution')">Distribución</button>
+        </div>
+      </div>
+      <form class="chart-filters" [formGroup]="filtros">
+        <div class="field">
+          <label>Subreddit</label>
+          <input type="text" formControlName="subreddit" placeholder="ej: depression" />
+        </div>
+        <div class="field">
+          <label>Inicio</label>
+          <input type="date" formControlName="start" />
+        </div>
+        <div class="field">
+          <label>Fin</label>
+          <input type="date" formControlName="end" />
+        </div>
+        <button type="button" class="apply" (click)="aplicarFiltros()">Aplicar filtros</button>
+      </form>
+      <div class="charts-body">
+        <ng-container *ngIf="chartView==='trend'">
+          <app-dashboard-trend [data]="trendData" [loading]="loadingTrend" [error]="errorTrend"></app-dashboard-trend>
+        </ng-container>
+        <ng-container *ngIf="chartView==='distribution'">
+          <app-dashboard-distribution [data]="distributionData" [loading]="loadingDistribution" [error]="errorDistribution"></app-dashboard-distribution>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Posts críticos (ancho completo, al final) -->
+  <section class="section critical" *ngIf="sectionView==='general'">
+    <h2 class="section-title">Posts críticos</h2>
+    <app-dashboard-critical-posts [posts]="criticalPosts" [loading]="loadingCritical" [error]="errorCritical"></app-dashboard-critical-posts>
+  </section>
+</div>

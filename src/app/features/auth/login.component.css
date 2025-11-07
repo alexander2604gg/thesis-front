@@ -87,6 +87,13 @@
   color: #ff6d4d;
 }
 
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .error-message {
   background-color: #fef2f2;
   border: 1px solid #fecaca;

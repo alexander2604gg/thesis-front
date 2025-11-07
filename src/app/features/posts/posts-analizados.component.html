@@ -50,36 +50,100 @@
       <div class="post-header">
         <div class="user-info">
           <div class="avatar">
-            <span>{{ post.redditId.charAt(0).toUpperCase() }}</span>
+            <span>{{ (post.author || post.redditId || '?').charAt(0).toUpperCase() }}</span>
           </div>
           <div class="user-details">
-            <span class="username">u/{{ post.redditId }}</span>
-            <span class="date">{{ formatearFecha(post.createdAtReddit) }}</span>
+            <span class="username">u/{{ post.author || post.redditId || 'usuario' }}</span>
+            <span class="date">{{ post.createdAtReddit ? formatearFecha(post.createdAtReddit) : '' }}</span>
           </div>
         </div>
       </div>
 
       <!-- Contenido del post -->
       <div class="post-content">
-        <h3 class="post-title">{{ post.title }}</h3>
+        <div class="post-title-row">
+          <h3 class="post-title">{{ post.title }}</h3>
+          <button class="btn-ver-mas" (click)="abrirModalTexto(post)">Ver texto completo</button>
+        </div>
         <p class="post-text">{{ post.content }}</p>
       </div>
 
       <!-- Estado de depresión -->
       <div class="depression-status">
-        <span *ngIf="post.analysis" class="status-label" [ngClass]="obtenerClaseEstado(post.analysis.depressionScore)">
-          {{ obtenerEstadoDepresion(post.analysis.depressionScore) }}
+        <span *ngIf="post.analysis" class="status-label" [ngClass]="obtenerClaseEstado(post.analysis.label)">
+          {{ obtenerEstadoDepresion(post.analysis.label) }}
         </span>
-        <span *ngIf="post.analysis" class="score">Score: {{ (post.analysis.depressionScore * 100 | number:'1.1-1') }}%</span>
+        
+        <span *ngIf="post.analysis?.depressionScore != null" class="score">Porcentaje de depresión: {{ formatearPorcentajeDepresion(post.analysis.depressionScore) }}</span>
         <span *ngIf="!post.analysis" class="status-label no-analysis">
           Sin análisis
         </span>
       </div>
+
+      <!-- Acción y recomendación por post -->
+      <div class="acciones-post" *ngIf="post.analysis && tieneDepresion(post.analysis.label)">
+        <button class="btn-recomendacion" (click)="solicitarRecomendacion(post)" [disabled]="recomendaciones[post.id].cargando">
+          {{ post.recommendation ? 'Ver recomendación' : 'Obtener recomendación del post' }}
+        </button>
+        <button class="btn-enviar" *ngIf="(post.recommendation || recomendaciones[post.id]?.texto) && !post.messageSent" (click)="enviarRecomendacion(post)" [disabled]="envios[post.id]?.cargando">
+          Enviar recomendación por Reddit
+        </button>
+        <span *ngIf="envios[post.id]?.resultado" style="margin-left:8px; font-size:12px; color:#28a745;">
+          {{ envios[post.id]?.resultado }}
+        </span>
+        <span *ngIf="envios[post.id]?.error" style="margin-left:8px; font-size:12px; color:#dc3545;">
+          {{ envios[post.id]?.error }}
+        </span>
+      </div>
+
+
     </div>
   </div>
 
   <!-- Mensaje cuando no hay posts -->
   <div *ngIf="!cargando && !error && posts.length === 0" class="no-posts">
     <p>No se encontraron posts para este lote.</p>
+  </div>
+
+  <!-- Modal de recomendación -->
+  <div class="modal-overlay" *ngIf="modalPostId as mid">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Recomendación del post</h3>
+        <button class="btn-cerrar" (click)="cerrarModal()">×</button>
+      </div>
+      <div class="modal-content">
+        <div *ngIf="recomendaciones[mid].cargando" class="loading inline">
+          <div class="spinner"></div>
+          <p>Consultando recomendación...</p>
+        </div>
+        <div *ngIf="recomendaciones[mid].texto" class="recomendacion-texto">
+          {{ recomendaciones[mid].texto }}
+        </div>
+        <div *ngIf="recomendaciones[mid].error" class="error inline">
+          <p>{{ recomendaciones[mid].error }}</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secundario" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de texto completo -->
+  <div class="modal-overlay" *ngIf="modalTextoPost as mp" (click)="cerrarModalTexto()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Texto completo del post</h3>
+        <button class="btn-cerrar" (click)="cerrarModalTexto()">×</button>
+      </div>
+      <div class="modal-content">
+        <h4 class="modal-post-title">{{ mp.title }}</h4>
+        <div class="full-text">{{ mp.content }}</div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secundario" (click)="cerrarModalTexto()">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,15 @@
+<div class="modal-backdrop" *ngIf="visible" (click)="onBackdropClick()">
+  <div class="modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+    <div class="modal-header" [class.success]="type === 'success'" [class.delete]="type === 'delete'" [class.warning]="type === 'warning'" [class.info]="type === 'info'">
+      <span class="modal-icon">{{ icon }}</span>
+      <h3 class="modal-title">{{ title }}</h3>
+    </div>
+    <div class="modal-body">
+      <p>{{ message }}</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" (click)="onConfirm()">{{ confirmText }}</button>
+      <button class="btn secondary" *ngIf="showCancel" (click)="onCancel()">{{ cancelText }}</button>
+    </div>
+  </div>
+</div>

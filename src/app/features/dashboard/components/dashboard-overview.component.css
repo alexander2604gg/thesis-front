@@ -1,0 +1,43 @@
+.overview-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow-x: auto;
+  justify-content: flex-start;
+  width: max-content; /* evita que la fila se estire y separa el último card */
+  -webkit-overflow-scrolling: touch;
+}
+
+.overview-grid .card {
+  flex: 0 0 240px;
+}
+
+/* Hacer más pequeños: Total de Posts (1) y Subreddits activos (4) */
+.overview-grid .card:nth-child(1),
+.overview-grid .card:nth-child(4) {
+  flex: 0 0 180px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.metric { display: flex; flex-direction: column; gap: 6px; }
+.label { color: #6c757d; font-size: 13px; }
+.value { color: #212529; font-weight: 600; font-size: 20px; }
+
+.skeleton {
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.error { color: #dc3545; }

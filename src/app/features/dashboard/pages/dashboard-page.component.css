@@ -1,0 +1,22 @@
+.dashboard-container { padding: 20px; max-width: 1200px; margin: 0 auto; }
+.header { margin-bottom: 16px; }
+.view-switch { display:flex; gap:8px; margin-top: 8px; }
+.view-switch button { padding: 8px 12px; border:1px solid #cbd5e1; background:#f8fafc; border-radius: 8px; cursor:pointer; }
+.view-switch button.active { background:#3b82f6; color:#fff; border-color:#3b82f6; }
+.section { margin-bottom: 24px; }
+.section-title { font-size: 1.25rem; margin: 0 0 12px 0; }
+.critical app-dashboard-critical-posts { display:block; }
+.chart-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end; margin-bottom: 12px; }
+.field { display:flex; flex-direction: column; gap:6px; }
+.field input { padding: 8px; border:1px solid #dee2e6; border-radius: 8px; }
+.apply { padding: 10px 14px; border:none; background:#3b82f6; color:#fff; border-radius: 8px; cursor:pointer; }
+.general-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 1024px) { .general-grid { grid-template-columns: 1fr 1fr; } }
+
+/* Tarjeta de gráficos con tabs */
+.charts-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; }
+.charts-header { display:flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.chart-switch { display:flex; gap:8px; }
+.chart-switch button { padding: 8px 12px; border:1px solid #cbd5e1; background:#f8fafc; border-radius: 8px; cursor:pointer; }
+.chart-switch button.active { background:#3b82f6; color:#fff; border-color:#3b82f6; }
+.charts-body { padding-top: 4px; }

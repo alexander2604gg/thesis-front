@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ConfiguracionService } from './configuracion.service';
 import { Router } from '@angular/router';
+import { ModalComponent } from '../../shared/ui/modal/modal.component';
 
 @Component({
   selector: 'app-configuracion',
-  imports: [Navbar, FormsModule, CommonModule],
+  imports: [Navbar, FormsModule, CommonModule, ModalComponent],
   templateUrl: './configuracion.html',
   styleUrl: './configuracion.css',
   standalone: true
@@ -26,6 +27,16 @@ export class Configuracion implements OnInit {
   intervalInvalido = false;
   errores = {
     subreddit: false
+  };
+
+  modal = {
+    visible: false,
+    type: 'info' as 'success' | 'delete' | 'warning' | 'info',
+    title: '',
+    message: '',
+    confirmText: 'Aceptar',
+    cancelText: 'Cancelar',
+    showCancel: false
   };
 
   constructor(
@@ -84,17 +95,65 @@ export class Configuracion implements OnInit {
       .subscribe({
         next: (response: string) => {
           this.cargando = false;
-          alert('Configuración guardada con éxito');
+          this.mostrarModal('success', 'Registro exitoso', 'Configuración guardada con éxito');
         },
         error: (err: any) => {
           this.cargando = false;
-          alert('Error al guardar configuración: ' + err.message);
+          const mensaje = this.extraerMensajeError(err);
+          this.mostrarModal('warning', 'Error', 'Error al guardar configuración: ' + mensaje);
         }
       });
   }
 
   volver() {
     this.router.navigate(['/configuraciones-registradas']);
+  }
+
+  mostrarModal(
+    type: 'success' | 'delete' | 'warning' | 'info',
+    title: string,
+    message: string,
+    showCancel = false,
+    confirmText = 'Aceptar',
+    cancelText = 'Cancelar'
+  ) {
+    this.modal.type = type;
+    this.modal.title = title;
+    this.modal.message = message;
+    this.modal.showCancel = showCancel;
+    this.modal.confirmText = confirmText;
+    this.modal.cancelText = cancelText;
+    this.modal.visible = true;
+  }
+
+  onModalConfirm() {
+    this.modal.visible = false;
+  }
+
+  onModalCancel() {
+    this.modal.visible = false;
+  }
+
+  onModalClose() {
+    this.modal.visible = false;
+  }
+
+  private extraerMensajeError(err: any): string {
+    const porDefecto = 'Ocurrió un error';
+    if (!err) return porDefecto;
+    const e = err.error;
+    if (typeof e === 'string') {
+      try {
+        const obj = JSON.parse(e);
+        return obj?.message || porDefecto;
+      } catch {
+        return e;
+      }
+    }
+    if (e && typeof e === 'object' && 'message' in e) {
+      return (e as any).message || porDefecto;
+    }
+    return err.message || porDefecto;
   }
 }
 

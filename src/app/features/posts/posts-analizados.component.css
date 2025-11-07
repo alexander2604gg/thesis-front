@@ -196,12 +196,33 @@
   margin-bottom: 15px;
 }
 
+.post-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .post-title {
   font-size: 16px;
   font-weight: 600;
   color: #212529;
   margin: 0 0 10px 0;
   line-height: 1.4;
+}
+
+.btn-ver-mas {
+  background-color: #e9ecef;
+  color: #343a40;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-ver-mas:hover {
+  background-color: #dee2e6;
 }
 
 .post-text {
@@ -215,22 +236,35 @@
   overflow: hidden;
 }
 
+.post-text.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+  white-space: normal;
+}
+
 /* Estado de depresión */
 .depression-status {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 12px;
   padding-top: 15px;
   border-top: 1px solid #e9ecef;
 }
 
 .status-label {
+  display: inline-flex;
+  align-items: center;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .depresion-detectada {
@@ -268,6 +302,140 @@
   font-size: 16px;
   margin: 0;
 }
+
+/* Modal estilizado */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: min(900px, 95vw);
+  max-height: 60vh;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.btn-cerrar {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-content {
+  padding: 20px;
+  flex: 1;
+  overflow: auto;
+}
+
+.modal-post-title {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.full-text {
+  font-size: 15px;
+  color: #343a40;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.recomendacion-texto {
+  font-size: 15px;
+  color: #212529;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #f8f9fa;
+}
+
+.btn-secundario {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Botón de recomendación */
+.acciones-post { margin-top: 12px; }
+.acciones-post {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-recomendacion {
+  background: linear-gradient(135deg, #5b86e5 0%, #36d1dc 100%);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-recomendacion:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(91, 134, 229, 0.35);
+}
+
+/* Botón enviar con color distinto */
+.btn-enviar {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+  color: #212529;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-enviar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(247, 151, 30, 0.35);
+}
+
+/* Ajustes de loading/error dentro del modal */
+.loading.inline { padding: 20px 0; }
+.error.inline { padding: 12px 16px; }
 
 /* Responsive */
 @media (max-width: 768px) {

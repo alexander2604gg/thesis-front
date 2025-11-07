@@ -88,7 +88,7 @@ export class Lotes implements OnInit {
   }
 
   formatearPeriodo(interval: number): string {
-    return `Cada ${interval} horas`;
+    return `Cada ${interval} minutos`;
   }
 
   volver() {

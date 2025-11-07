@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from '../../core/config/api.tokens';
 
 export interface ForumConfigResponseDto {
   id: number;
@@ -11,13 +12,13 @@ export interface ForumConfigResponseDto {
   interval: number;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ConfiguracionesRegistradasService {
-  private readonly apiUrl = 'http://localhost:8080/api/forum-config';
+  constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) {}
 
-  constructor(private http: HttpClient) {}
+  private get apiUrl(): string {
+    return `${this.baseUrl}/api/forum-config`;
+  }
 
   obtenerConfiguracionesPorFecha(fecha: string): Observable<ForumConfigResponseDto[]> {
     // Convertir fecha a formato requerido por el backend (yyyy-MM-dd'T'HH:mm:ss)

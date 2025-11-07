@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from '../../core/config/api.tokens';
 
 export interface LotResponseDto {
   id: number;
@@ -10,19 +11,19 @@ export interface LotResponseDto {
   configId?: number;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class LotesService {
-  private baseUrl = 'http://localhost:8080/api/lot';
+  constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) {}
 
-  constructor(private http: HttpClient) {}
+  private get apiUrl(): string {
+    return `${this.baseUrl}/api/lot`;
+  }
 
   obtenerLotesPorConfiguracion(idConfig: number): Observable<LotResponseDto[]> {
-    return this.http.get<LotResponseDto[]>(`${this.baseUrl}/by-config/${idConfig}`);
+    return this.http.get<LotResponseDto[]>(`${this.apiUrl}/by-config/${idConfig}`);
   }
 
   obtenerLotePorId(idLot: number): Observable<LotResponseDto> {
-    return this.http.get<LotResponseDto>(`${this.baseUrl}/${idLot}`);
+    return this.http.get<LotResponseDto>(`${this.apiUrl}/${idLot}`);
   }
 }

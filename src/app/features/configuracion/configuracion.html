@@ -99,3 +99,16 @@
     </form>
   </div>
 </div>
+
+<app-modal
+  [visible]="modal.visible"
+  [type]="modal.type"
+  [title]="modal.title"
+  [message]="modal.message"
+  [confirmText]="modal.confirmText"
+  [cancelText]="modal.cancelText"
+  [showCancel]="modal.showCancel"
+  (confirm)="onModalConfirm()"
+  (cancel)="onModalCancel()"
+  (close)="onModalClose()"
+></app-modal>

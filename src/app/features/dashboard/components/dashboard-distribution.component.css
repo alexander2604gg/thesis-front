@@ -1,0 +1,6 @@
+.card { background: #fff; border: 1px solid #e9ecef; border-radius: 12px; padding: 16px; }
+.header { display:flex; justify-content: space-between; align-items:center; margin-bottom: 8px; }
+.loading { display:flex; align-items:center; gap:10px; }
+.spinner { width: 20px; height: 20px; border: 3px solid #e9ecef; border-top: 3px solid #764ba2; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
+.error { color: #dc3545; }

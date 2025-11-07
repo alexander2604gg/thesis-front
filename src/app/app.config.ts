@@ -2,13 +2,18 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { API_BASE_URL } from './core/config/api.tokens';
+import { httpErrorInterceptor } from './core/http/http-error.interceptor';
+import { authInterceptor } from './features/auth/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor, httpErrorInterceptor])),
+    //{ provide: API_BASE_URL, useValue: 'http://tesis-backend-env.eba-hps3gvue.us-east-2.elasticbeanstalk.com' },
+    { provide: API_BASE_URL, useValue: 'http://localhost:8080' },
   ]
 };
