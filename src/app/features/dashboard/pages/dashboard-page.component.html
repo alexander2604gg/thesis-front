@@ -6,6 +6,7 @@
     <div class="view-switch">
       <button [class.active]="sectionView==='general'" (click)="setSectionView('general')">Visión general</button>
       <button [class.active]="sectionView==='analytics'" (click)="setSectionView('analytics')">Análisis con filtros</button>
+      <button [class.active]="sectionView==='posts'" (click)="setSectionView('posts')">Post totales</button>
     </div>
   </div>
 
@@ -58,5 +59,11 @@
   <section class="section critical" *ngIf="sectionView==='general'">
     <h2 class="section-title">Posts críticos</h2>
     <app-dashboard-critical-posts [posts]="criticalPosts" [loading]="loadingCritical" [error]="errorCritical"></app-dashboard-critical-posts>
+  </section>
+
+  <!-- Sección 4: Post totales -->
+  <section class="section posts" *ngIf="sectionView==='posts'">
+    <h2 class="section-title">Post totales</h2>
+    <app-dashboard-all-posts [posts]="allPosts" [loading]="loadingAll" [error]="errorAll"></app-dashboard-all-posts>
   </section>
 </div>

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { Navbar } from '../../../core/layout/navbar/navbar';
 import { DashboardService, DashboardOverview, TrendPoint, DistributionBucket, CriticalPost } from '../services/dashboard.service';
+import { DashboardAllPostsComponent } from '../components/dashboard-all-posts.component';
+import { AllPost } from '../types/all-posts';
 import { DashboardOverviewComponent } from '../components/dashboard-overview.component';
 import { DashboardTrendComponent } from '../components/dashboard-trend.component';
 import { DashboardDistributionComponent } from '../components/dashboard-distribution.component';
@@ -11,7 +13,7 @@ import { DashboardCriticalPostsComponent } from '../components/dashboard-critica
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Navbar, DashboardOverviewComponent, DashboardTrendComponent, DashboardDistributionComponent, DashboardCriticalPostsComponent],
+  imports: [CommonModule, ReactiveFormsModule, Navbar, DashboardOverviewComponent, DashboardTrendComponent, DashboardDistributionComponent, DashboardCriticalPostsComponent, DashboardAllPostsComponent],
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.css']
 })
@@ -21,7 +23,7 @@ export class DashboardPageComponent implements OnInit {
   // Vista activa de gráficos
   chartView: 'trend' | 'distribution' = 'trend';
   // Vista activa de sección
-  sectionView: 'general' | 'analytics' = 'general';
+  sectionView: 'general' | 'analytics' | 'posts' = 'general';
 
   // Estados y datos
   overview: DashboardOverview | null = null;
@@ -30,6 +32,7 @@ export class DashboardPageComponent implements OnInit {
   trendData: TrendPoint[] = []; loadingTrend = false; errorTrend = '';
   distributionData: DistributionBucket[] = []; loadingDistribution = false; errorDistribution = '';
   criticalPosts: CriticalPost[] = []; loadingCritical = false; errorCritical = '';
+  allPosts: AllPost[] = []; loadingAll = false; errorAll = '';
 
   constructor(private fb: FormBuilder, private dashboardService: DashboardService) {}
 
@@ -49,8 +52,11 @@ export class DashboardPageComponent implements OnInit {
     this.chartView = view;
   }
 
-  setSectionView(view: 'general' | 'analytics'): void {
+  setSectionView(view: 'general' | 'analytics' | 'posts'): void {
     this.sectionView = view;
+    if (view === 'posts' && this.allPosts.length === 0 && !this.loadingAll) {
+      this.cargarAllPosts();
+    }
   }
 
   aplicarFiltros(): void {
@@ -90,6 +96,14 @@ export class DashboardPageComponent implements OnInit {
     this.dashboardService.getCriticalPosts(threshold, limit).subscribe({
       next: (data) => { this.criticalPosts = data; this.loadingCritical = false; },
       error: () => { this.errorCritical = 'Error al cargar posts críticos'; this.loadingCritical = false; }
+    });
+  }
+
+  private cargarAllPosts(): void {
+    this.loadingAll = true; this.errorAll = ''; this.allPosts = [];
+    this.dashboardService.getAllAnalyzedPosts(0, 20).subscribe({
+      next: (resp) => { this.allPosts = resp?.content || []; this.loadingAll = false; },
+      error: () => { this.errorAll = 'Error al cargar post totales'; this.loadingAll = false; }
     });
   }
 

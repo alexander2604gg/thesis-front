@@ -2,6 +2,19 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../../../core/config/api.tokens';
+import { AllPost } from '../types/all-posts';
+
+export interface PageResponse<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number; // página actual (0-index)
+  first: boolean;
+  last: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
 
 export interface DashboardOverview {
   totalPosts: number;
@@ -28,6 +41,7 @@ export interface CriticalPost {
   label: string;
   date: string;
   excerpt: string;
+  author?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -69,5 +83,13 @@ export class DashboardService {
     params.append('threshold', String(threshold));
     params.append('limit', String(limit));
     return this.http.get<CriticalPost[]>(`${this.apiUrl}/posts/critical?${params.toString()}`);
+  }
+
+  // Posts analizados, paginados
+  getAllAnalyzedPosts(page: number, size: number): Observable<PageResponse<AllPost>> {
+    const params = new URLSearchParams();
+    params.append('page', String(page));
+    params.append('size', String(size));
+    return this.http.get<PageResponse<AllPost>>(`${this.apiUrl}/posts/all?${params.toString()}`);
   }
 }
