@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor, httpErrorInterceptor])),
     //{ provide: API_BASE_URL, useValue: 'http://tesis-backend-env.eba-hps3gvue.us-east-2.elasticbeanstalk.com' },
-    { provide: API_BASE_URL, useValue: 'http://10.0.2.119:8080' },
+    { provide: API_BASE_URL, useValue: 'http://lb-thesis-2067979403.us-east-2.elb.amazonaws.com' },
   ]
 };
