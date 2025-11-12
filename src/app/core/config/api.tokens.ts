@@ -1,1 +1,3 @@
-export const API_BASE_URL = 'http://10.0.2.119:8080';
+import { InjectionToken } from '@angular/core';
+
+export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
